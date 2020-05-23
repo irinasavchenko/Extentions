@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener(
-  function(request, sender) {
+  function(request, sender, sendResponse) {
     console.log(request, sender, document.URL);
-    if(request.action = "printPage") {
+    if(request.action === "printPage") {
       openPreviewModal();
     }
   });
