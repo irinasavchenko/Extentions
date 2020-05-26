@@ -1,13 +1,13 @@
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    console.log(request, sender, document.URL);
+  function(request, sender) {
     if(request.action === "printPage") {
       openPreviewModal();
     }
   });
 
   function openPreviewModal() {
-    const html =   
+    const pageHtml = `<html> ${document.documentElement.innerHTML}</html>`;
+    const modalHtml =
       `<div id="pagePrinter" class="modal hidden-print" tabindex="-1" role="dialog">
         <div class="modal-dialog.modal-lg modal-dialog-scrollable fullSize">
           <div class="modal-content fullSize">
@@ -18,21 +18,29 @@ chrome.runtime.onMessage.addListener(
               </button>
             </div>
             <div class="modal-body fullSize">
-              <iframe src="${document.URL}" width="100%" height="100%" allowfullscreen />
+              <iframe id="pagePrinterIframe" width="100%" height="100%" allowfullscreen />
             </div>
           </div>
         </div>
       </div>`;
 
-    let div = document.getElementById('extContent'); 
+    let div = document.getElementById('extContent');
 
     if(!div) {
       div = document.createElement('div');
       div.id = 'extContent';
-      div.innerHTML = html;
+      div.innerHTML = modalHtml;
       document.body.appendChild(div);
     }
 
+    const pagePrinterIframe = document.getElementById('pagePrinterIframe')
+
+    pagePrinterIframe.contentDocument.open();
+    pagePrinterIframe.contentDocument.write(pageHtml);
+    pagePrinterIframe.contentDocument.close();
+
+  // works in the most cases. but sometimes there are errors with this attribute
+  //  pagePrinterIframe.srcdoc = pageHtml;
     $('#pagePrinter').modal('toggle');
     $('#openPrinterPage').on('click', function() {
       window.print();
