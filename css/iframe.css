@@ -1,0 +1,41 @@
+.pagePrinter--over {
+  cursor: pointer;
+  position: relative;
+  color: rgba(179,151,15,0.7)
+}
+
+.pagePrinter--hidden {
+  display: none;
+}
+
+.pagePrinter--over:before{
+  content: "";
+  font-size: 0px;
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  right: -1rem;
+  bottom: -1rem;
+  background-color: rgba(248,233,127,0.5);
+}
+
+.pagePrinter--over:after {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  bottom: -1rem;
+  left: -1rem;
+  width: 4rem;
+  font-size: 2rem;
+  text-align: center;
+  content: "";
+  background: #f8e97f url(/images/dustbin.png) no-repeat center;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+@media print {
+  .no-print, .no-print * {
+    display: none !important;
+  }
+}

@@ -16,25 +16,37 @@
 			"js": [
 				"bootstrap/js/jquery.min.js",
 				"bootstrap/js/bootstrap.min.js",
-				"js/content.js"
+				"/js/content.js"
 			],
 			"css": [
-				"css/content.css",
-				"bootstrap/css/bootstrap.min.css",
-				"bootstrap/css/bootstrap-theme.min.css"
+				"css/index.css",
+				"css/iframe.css"
 			],
 			"all_frames": true
 		}
 	],
 	"permissions": [
-        "activeTab",
 		"tabs",
 		"background",
 		"storage",
 		"<all_urls>",
 		"webRequest",
-		"webRequestBlocking"
+		"webRequestBlocking",
+		"contextMenus"
 	],
+	"web_accessible_resources": [
+		"css/iframe.css",
+		"css/index.css",
+		"images/dustbin.png"
+  ],
 	"manifest_version": 2,
-	"version": "1.0"
+	"version": "1.0",
+	"content_security_policy": "default-src 'self'; frame-src 'self'; script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+F"
+			}
+		}
+	}
 }
